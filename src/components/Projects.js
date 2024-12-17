@@ -49,31 +49,32 @@ const Projects = () => {
     status: "Completed",
     technologies: ""
   });
-
-  const applyFilters = () => {
+  const applyFilters = React.useCallback(() => {
     let filteredProjects = initialProjectsArray;
-
+  
     if (searchText) {
       filteredProjects = filteredProjects.filter((project) =>
         project.title.toLowerCase().includes(searchText.toLowerCase())
       );
     }
-
+  
     if (filter !== "All") {
       filteredProjects = filteredProjects.filter(
         (project) => project.status === filter
       );
     }
-
+  
     setProjects(filteredProjects);
-  };
+  }, [searchText, filter, initialProjectsArray]);
+  
+  React.useEffect(() => {
+    applyFilters();
+  }, [applyFilters]);
+  
 
   const handleSearchChange = (event) => setSearchText(event.target.value);
   const handleFilterChange = (event) => setFilter(event.target.value);
 
-  React.useEffect(() => {
-    applyFilters();
-  }, [searchText, filter]);
 
   const handleProjectClick = (projectId) => navigate(`/project/${projectId}`);
 
@@ -219,7 +220,7 @@ const Projects = () => {
               key={project.id}
               className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300" 
             >
-              <a className="text-xl font-semibold cursor-pointer" onClick={()=>handleProjectClick(project.id)}>{project.title}</a>
+              <div className="text-xl font-semibold cursor-pointer" onClick={()=>handleProjectClick(project.id)}>{project.title}</div>
               <p className="text-gray-700 mt-2">{project.description}</p>
               <p className="text-gray-500">{project.timeline}</p>
               <span

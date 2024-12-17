@@ -177,12 +177,12 @@ const ProfileSection = () => {
         <ul className="space-y-2">
           {relatedProjects.map((related) => (
             <li key={related.id}>
-              <a
+              <div
                 onClick={() => handlenavigation(related.id)}
                 className="text-blue-500 underline hover:text-blue-700"
               >
                 {related.title}
-              </a>
+              </div>
             </li>
           ))}
         </ul>
@@ -195,7 +195,7 @@ const ProfileSection = () => {
             <div key={index} className="relative overflow-hidden rounded-lg shadow-lg group">
               <img
                 src={img}
-                alt={`Project ${project.title} Image ${index + 1}`}
+                alt={`Project ${project.title} ${index + 1}`}
                 className="w-full h-auto transform group-hover:scale-105 transition-transform duration-300"
               />
             </div>
