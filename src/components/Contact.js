@@ -139,12 +139,12 @@ const ContactSection = () => {
           >
             <FaLinkedin className="text-2xl" />
           </a>
-          <a
+          <div
             onClick={openMailClient}
-            className="text-red-500 hover:text-red-700"
+            className="text-red-500 hover:text-red-700 cursor-pointer"
           >
             <FaEnvelope className="text-2xl" />
-          </a>
+          </div>
         </div>
       </div>
     </div>
