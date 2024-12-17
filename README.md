@@ -21,7 +21,7 @@ Check out the live demo: https://portfoliodashsphere.netlify.app/
 - Chart.js (for analytics visualization)  
 - React Router  
 - React popup libraray
-- React testing libraray for testing purposes
+- React testing library and jest for testing purposes
 
 ## Acknowledgments  
 - [React.js Documentation](https://reactjs.org/docs/getting-started.html)  
