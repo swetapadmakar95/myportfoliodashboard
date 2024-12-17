@@ -1,42 +1,47 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Projects = () => {
   const navigate = useNavigate();
   const formRef = useRef(null);
   const projectref = useRef(null);
-  const initialProjectsArray = [
-    {
-      id: 1,
-      title: "Project A",
-      description:
-        "Description of Project A. It is a detailed explanation of the project objectives, scope, and implementation.",
-      timeline: "Jan 2022 - Mar 2022",
-      status: "Completed",
-      technologies: ["React", "TailwindCSS", "Chart.js"],
-      images: [
-        "/images/website1.jpg",
-        "/images/website2.jpeg",
-        "/images/website3.jpeg",
-      ],
-    },
-    {
-      id: 2,
-      title: "Project B",
-      description: "Description of Project B",
-      timeline: "Apr 2022 - Jun 2022",
-      status: "In Progress",
-      technologies: "React, TailwindCSS, TypeScript",
-    },
-    {
-      id: 3,
-      title: "Project C",
-      description: "Description of Project C",
-      timeline: "Jul 2022 - Sep 2022",
-      status: "Planned",
-      technologies: "MERN, TailwindCSS, JavaScript",
-    },
-  ];
+
+  // Wrap `initialProjectsArray` in useMemo
+  const initialProjectsArray = useMemo(
+    () => [
+      {
+        id: 1,
+        title: "Project A",
+        description:
+          "Description of Project A. It is a detailed explanation of the project objectives, scope, and implementation.",
+        timeline: "Jan 2022 - Mar 2022",
+        status: "Completed",
+        technologies: ["React", "TailwindCSS", "Chart.js"],
+        images: [
+          "/images/website1.jpg",
+          "/images/website2.jpeg",
+          "/images/website3.jpeg",
+        ],
+      },
+      {
+        id: 2,
+        title: "Project B",
+        description: "Description of Project B",
+        timeline: "Apr 2022 - Jun 2022",
+        status: "In Progress",
+        technologies: "React, TailwindCSS, TypeScript",
+      },
+      {
+        id: 3,
+        title: "Project C",
+        description: "Description of Project C",
+        timeline: "Jul 2022 - Sep 2022",
+        status: "Planned",
+        technologies: "MERN, TailwindCSS, JavaScript",
+      },
+    ],
+    []
+  );
 
   const [projects, setProjects] = useState(initialProjectsArray);
   const [searchText, setSearchText] = useState("");
@@ -47,34 +52,33 @@ const Projects = () => {
     description: "",
     timeline: "",
     status: "Completed",
-    technologies: ""
+    technologies: "",
   });
+
   const applyFilters = React.useCallback(() => {
     let filteredProjects = initialProjectsArray;
-  
+
     if (searchText) {
       filteredProjects = filteredProjects.filter((project) =>
         project.title.toLowerCase().includes(searchText.toLowerCase())
       );
     }
-  
+
     if (filter !== "All") {
       filteredProjects = filteredProjects.filter(
         (project) => project.status === filter
       );
     }
-  
+
     setProjects(filteredProjects);
   }, [searchText, filter, initialProjectsArray]);
-  
+
   React.useEffect(() => {
     applyFilters();
   }, [applyFilters]);
-  
 
   const handleSearchChange = (event) => setSearchText(event.target.value);
   const handleFilterChange = (event) => setFilter(event.target.value);
-
 
   const handleProjectClick = (projectId) => navigate(`/project/${projectId}`);
 
@@ -89,7 +93,9 @@ const Projects = () => {
     if (editingProject) {
       setProjects((prevProjects) =>
         prevProjects.map((project) =>
-          project.id === editingProject ? { ...newProject, id: editingProject } : project
+          project.id === editingProject
+            ? { ...newProject, id: editingProject }
+            : project
         )
       );
       setEditingProject(null);
@@ -127,7 +133,9 @@ const Projects = () => {
     <div className="p-6 bg-gray-50 min-h-screen pt-20 py-20">
       {/* Add/Edit Project Form */}
       <div className="bg-white shadow-lg p-6 rounded-lg mb-8" ref={formRef}>
-        <h3 className="text-2xl font-semibold mb-4">{editingProject ? "Edit Project" : "Add Project"}</h3>
+        <h3 className="text-2xl font-semibold mb-4">
+          {editingProject ? "Edit Project" : "Add Project"}
+        </h3>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <input
@@ -218,9 +226,14 @@ const Projects = () => {
           projects.map((project) => (
             <div
               key={project.id}
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300" 
+              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
             >
-              <div className="text-xl font-semibold cursor-pointer" onClick={()=>handleProjectClick(project.id)}>{project.title}</div>
+              <div
+                className="text-xl font-semibold cursor-pointer"
+                onClick={() => handleProjectClick(project.id)}
+              >
+                {project.title}
+              </div>
               <p className="text-gray-700 mt-2">{project.description}</p>
               <p className="text-gray-500">{project.timeline}</p>
               <span
