@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Pie } from "react-chartjs-2";
 import "chart.js/auto";
 import jsPDF from "jspdf";
-import Avatar from "react-avatar"; // Import Avatar component
+import Avatar from "react-avatar";
 
 const ProfileSection = () => {
   const { projectId } = useParams();
@@ -57,7 +57,7 @@ const ProfileSection = () => {
   ];
 
   const project = projectsArray.find((p) => p.id === parseInt(projectId));
-  const handlenavigation = (projectId) => navigate(`/project/${projectId}`)
+  const handlenavigation = (projectId) => navigate(`/project/${projectId}`);
 
   if (!project) {
     return (
@@ -67,7 +67,6 @@ const ProfileSection = () => {
     );
   }
 
-  // Dynamically create the chart data based on the project technologies
   const technologyData = {
     labels: project.technologies,
     datasets: [
@@ -126,7 +125,6 @@ const ProfileSection = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 py-10 px-6">
-      {/* Header Section */}
       <header className="bg-gradient-to-r from-purple-400 to-pink-500 text-white py-10 rounded-lg shadow-lg text-center mb-10">
         <h1 className="text-4xl font-bold mb-2">{project.title}</h1>
         <p className="text-lg mb-4">{project.timeline}</p>
@@ -152,8 +150,6 @@ const ProfileSection = () => {
         </button>
       </header>
 
-      {/* Project Overview Section */}
-
       <section className="bg-white rounded-lg shadow-lg p-6 mb-10">
         <h2 className="text-2xl font-semibold mb-4">Project Overview</h2>
         <p className="text-gray-700 mb-4">
@@ -169,7 +165,6 @@ const ProfileSection = () => {
         </p>
       </section>
 
-      {/* Pie Chart Section */}
       <section className="bg-white rounded-lg shadow-lg p-6 mb-10">
         <h2 className="text-2xl font-semibold mb-4">Technology Distribution</h2>
         <div className="w-full max-w-md mx-auto">
@@ -177,13 +172,15 @@ const ProfileSection = () => {
         </div>
       </section>
 
-      {/* Related Projects Section */}
       <section className="bg-white rounded-lg shadow-lg p-6 mb-10">
         <h2 className="text-2xl font-semibold mb-4">Related Projects</h2>
-        <ul>
+        <ul className="space-y-2">
           {relatedProjects.map((related) => (
-            <li key={related.id} className="mb-2">
-              <a onClick={()=>handlenavigation(related?.id)} className="text-blue-500 underline">
+            <li key={related.id}>
+              <a
+                onClick={() => handlenavigation(related.id)}
+                className="text-blue-500 underline hover:text-blue-700"
+              >
                 {related.title}
               </a>
             </li>
@@ -191,15 +188,11 @@ const ProfileSection = () => {
         </ul>
       </section>
 
-      {/* Image Gallery Section */}
       <section className="bg-white rounded-lg shadow-lg p-6 mb-10">
         <h2 className="text-2xl font-semibold mb-4">Project Images</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {project.images.map((img, index) => (
-            <div
-              key={index}
-              className="relative overflow-hidden rounded-lg shadow-lg group"
-            >
+            <div key={index} className="relative overflow-hidden rounded-lg shadow-lg group">
               <img
                 src={img}
                 alt={`Project ${project.title} Image ${index + 1}`}
@@ -210,17 +203,20 @@ const ProfileSection = () => {
         </div>
       </section>
 
-      {/* Comments Section */}
       <section className="bg-white rounded-lg shadow-lg p-6 mb-10">
         <h2 className="text-2xl font-semibold mb-4">Comments</h2>
 
-        <div className="flex">
+        <div className="flex flex-col sm:flex-row mb-4">
           <input
             type="text"
             value={editingCommentIndex !== null ? editedComment : newComment}
-            onChange={(e) => (editingCommentIndex !== null ? setEditedComment(e.target.value) : setNewComment(e.target.value))}
+            onChange={(e) =>
+              editingCommentIndex !== null
+                ? setEditedComment(e.target.value)
+                : setNewComment(e.target.value)
+            }
             placeholder="Write a comment..."
-            className="flex-grow border rounded-l px-4 py-2"
+            className="flex-grow border rounded-l px-4 py-2 mb-2 sm:mb-0"
           />
           <button
             onClick={editingCommentIndex !== null ? handleSaveEditedComment : handleAddComment}
@@ -230,19 +226,19 @@ const ProfileSection = () => {
           </button>
         </div>
 
-        <div className="mb-4">
+        <div className="space-y-4">
           {comments.map((comment, index) => (
-            <div key={index} className="bg-gray-100 p-2 rounded mt-2">
-              <div className="flex items-center">
-                <Avatar name={comment?.author} size="30" round className="mr-2" />
-                <strong>{comment?.author}</strong> -{" "}
-                <span className="text-gray-500">{comment?.date}</span>
+            <div key={index} className="bg-gray-100 p-4 rounded-lg shadow-md">
+              <div className="flex items-center mb-2">
+                <Avatar name={comment.author} size="30" round className="mr-2" />
+                <strong>{comment.author}</strong> -{" "}
+                <span className="text-gray-500">{comment.date}</span>
               </div>
-              <p className="ml-9">{comment?.text}</p>
-              <div className="flex justify-end">
+              <p>{comment.text}</p>
+              <div className="flex justify-end gap-2 mt-2">
                 <button
                   onClick={() => handleEditComment(index)}
-                  className="text-blue-500 mr-2"
+                  className="text-blue-500"
                 >
                   Edit
                 </button>

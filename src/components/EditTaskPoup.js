@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import moment from "moment";
 import MyEditor from "./HtmlEditor";
 import { EditorState, ContentState } from "draft-js";
-import {
-  PencilIcon,
-} from "@heroicons/react/24/solid";
+import { PencilIcon } from "@heroicons/react/24/solid";
+
 const EditPopup = ({ task, closePopup, updateTask }) => {
   const [editedName, setEditedName] = useState(task.name);
   const [editedPriority, setEditedPriority] = useState(task.priority);
@@ -74,7 +73,7 @@ const EditPopup = ({ task, closePopup, updateTask }) => {
   };
 
   return (
-    <div className="fixed top-0 right-0 w-full sm:w-5/12 h-full bg-white shadow-lg border-l border-gray-300 z-50">
+    <div className="fixed top-0 right-0 w-full sm:w-4/12 md:w-2/6 h-full bg-white shadow-lg border-l border-gray-300 z-50">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b z-10">
         <h2 className="text-lg font-semibold text-gray-800">{editedName}</h2>
@@ -89,7 +88,7 @@ const EditPopup = ({ task, closePopup, updateTask }) => {
       {/* Content */}
       <div className="p-6 space-y-6 max-h-[calc(100vh-160px)] overflow-y-auto">
         {/* Title and Completion */}
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
           <div className="flex-1">
             <label className="block text-sm text-gray-700 mb-1">Title</label>
             <input
@@ -154,16 +153,9 @@ const EditPopup = ({ task, closePopup, updateTask }) => {
               readOnly
               className="w-full p-2 border border-gray-300 rounded bg-gray-100 focus:ring focus:ring-blue-200"
             />
-            {/* <button
-              onClick={() => setIsProjectPopupOpen(true)}
-              className="absolute right-2  text-gray-700 rounded hover:bg-gray-300"
-            >
-              ✎
-            </button> */}
-            <PencilIcon className="size-4 absolute right-2 text-gray-600" onClick={() => setIsProjectPopupOpen(true)}/>
+            <PencilIcon className="size-4 absolute right-2 text-gray-600" onClick={() => setIsProjectPopupOpen(true)} />
           </div>
         </div>
-
 
         {/* Description Editor */}
         <div>
@@ -173,7 +165,7 @@ const EditPopup = ({ task, closePopup, updateTask }) => {
       </div>
 
       {/* Footer */}
-      <div className="w-5/12 p-4 border-t border-gray-300 fixed bottom-0 right-0 z-10">
+      <div className="w-full sm:w-4/12 p-4 border-t border-gray-300 fixed bottom-0 right-0 z-10">
         <div className="flex justify-end gap-2">
           <button
             onClick={closePopup}
@@ -192,8 +184,7 @@ const EditPopup = ({ task, closePopup, updateTask }) => {
 
       {/* Project Selection Popup */}
       {isProjectPopupOpen && (
-        <div className="fixed top-0 right-0 w-full sm:w-5/12 h-full bg-white shadow-lg border-l border-gray-300 z-50">
-          {/* Project Popup Header */}
+        <div className="fixed top-0 right-0 w-full sm:w-4/12 md:w-3/12 h-full bg-white shadow-lg border-l border-gray-300 z-50">
           <div className="flex items-center justify-between p-4 border-b">
             <h3 className="text-lg font-semibold">Select a Project</h3>
             <button
@@ -203,10 +194,9 @@ const EditPopup = ({ task, closePopup, updateTask }) => {
               ✕
             </button>
           </div>
-          {/* Project List */}
           <div className="p-6 overflow-y-auto h-[calc(100vh-160px)]">
             <ul className="space-y-2">
-              {projectsArray.map((project,index) => (
+              {projectsArray.map((project, index) => (
                 <li
                   key={index}
                   className="p-2 cursor-pointer hover:bg-gray-100"

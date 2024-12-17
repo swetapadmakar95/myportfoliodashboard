@@ -1,4 +1,4 @@
-import React, { useState,useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Projects = () => {
@@ -128,7 +128,7 @@ const Projects = () => {
       <div className="bg-white shadow-lg p-6 rounded-lg mb-8" ref={formRef}>
         <h3 className="text-2xl font-semibold mb-4">{editingProject ? "Edit Project" : "Add Project"}</h3>
         <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <input
               type="text"
               name="title"
@@ -178,7 +178,7 @@ const Projects = () => {
           <div className="flex justify-end mb-6">
             <button
               type="submit"
-              className="mt-6 w-full md:w-auto px-6 py-3 justify-end bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-6 w-full sm:w-auto px-6 py-3 justify-end bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               {editingProject ? "Update Project" : "Add Project"}
             </button>
@@ -187,19 +187,19 @@ const Projects = () => {
       </div>
 
       {/* Search and Filter Section */}
-      <div className="flex flex-col md:flex-row items-center justify-between mb-8">
-        <h2 className="text-2xl font-semibold mb-4 md:mb-0">All Projects</h2>
+      <div className="flex flex-col sm:flex-row items-center justify-between mb-8">
+        <h2 className="text-2xl font-semibold mb-4 sm:mb-0">All Projects</h2>
 
-        <div className="flex flex-col md:flex-row gap-6 w-full md:w-auto">
+        <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
           <input
             type="search"
             placeholder="Search Project"
-            className="w-full md:w-64 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full sm:w-64 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={searchText}
             onChange={handleSearchChange}
           />
           <select
-            className="w-full md:w-auto px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full sm:w-auto px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={filter}
             onChange={handleFilterChange}
           >

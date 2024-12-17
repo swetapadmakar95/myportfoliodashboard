@@ -45,7 +45,18 @@ const ContactSection = () => {
       setLoading(false);
       setErrorMessage("Failed to send your message. Please try again.");
     }
-  };
+  }
+
+  // Mail Functionalty
+  const openMailClient = () => {
+    const subject = "Hello Sweta!";
+    const body = "I would like to connect with you.";
+    const mailToLink = `mailto:swetapadmakar95@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailToLink;
+    setTimeout(() => {
+      window.open(mailToLink, "_blank");
+    }, 300);
+  }
 
   return (
     <div className="p-6 bg-gray-50 rounded-lg shadow-md space-y-8 pt-20 pb-20 max-w-3xl mx-auto">
@@ -129,7 +140,7 @@ const ContactSection = () => {
             <FaLinkedin className="text-2xl" />
           </a>
           <a
-            href="mailto:swetapadmakar95@gmail.com"
+            onClick={openMailClient}
             className="text-red-500 hover:text-red-700"
           >
             <FaEnvelope className="text-2xl" />

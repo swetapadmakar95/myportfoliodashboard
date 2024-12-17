@@ -36,6 +36,7 @@ const TaskManager = () => {
     setPriority("Normal");
     setCount((prev) => prev + 1);
   };
+  
   const toggleCompletion = (id) => {
     setTasks(
       tasks.map((task) =>
@@ -126,19 +127,20 @@ const TaskManager = () => {
           projects, mark them as completed, or delete them to stay organized and
           productive.
         </p>
+
         {/* Add Task Section */}
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row sm:gap-4 sm:items-center">
           <input
             type="text"
             placeholder="Enter a task..."
             value={taskInput}
             onChange={(e) => setTaskInput(e.target.value)}
-            className="flex-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="flex-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4 sm:mb-0"
           />
           <select
             value={priority}
             onChange={(e) => setPriority(e.target.value)}
-            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4 sm:mb-0"
           >
             <option value="Low">Low</option>
             <option value="Normal">Normal</option>
@@ -162,30 +164,32 @@ const TaskManager = () => {
         />
 
         {/* Task Table */}
-        <DataGrid
-          rows={filteredTasks}
-          columns={columns}
-          disableColumnMenu={false}
-          disableColumnReorder={false}
-          disableSelectionOnClick
-          autoHeight
-          pageSizeOptions={[5]}
-          initialState={{
-            pagination: {
-              paginationModel: { pageSize: 5, page: 0 },
-            },
-          }}
-          sx={{
-            "& .MuiDataGrid-cell": {
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            },
-            "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: "lightgray",
-            },
-          }}
-        />
+        <div className="overflow-x-auto">
+          <DataGrid
+            rows={filteredTasks}
+            columns={columns}
+            disableColumnMenu={false}
+            disableColumnReorder={false}
+            disableSelectionOnClick
+            autoHeight
+            pageSizeOptions={[5]}
+            initialState={{
+              pagination: {
+                paginationModel: { pageSize: 5, page: 0 },
+              },
+            }}
+            sx={{
+              "& .MuiDataGrid-cell": {
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              },
+              "& .MuiDataGrid-columnHeaders": {
+                backgroundColor: "lightgray",
+              },
+            }}
+          />
+        </div>
       </div>
 
       {openEditPanel && (
